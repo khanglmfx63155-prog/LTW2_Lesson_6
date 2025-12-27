@@ -1,4 +1,5 @@
-number = prompt("Nhập số bạn muốn đọc");
+const number = Number(prompt("Nhập số bạn muốn đọc"));
+
 const chuSo = [
   "Không",
   "Một",
@@ -10,33 +11,40 @@ const chuSo = [
   "Bảy",
   "Tám",
   "Chín",
-  "Mười",
 ];
 
-var chuc = "mươi";
-var hangchuc = Math.floor(number / 10);
-var donvi = number % 10;
-var special = chuSo[donvi];
+let hangChuc = Math.floor(number / 10);
+let hangDonVi = number % 10;
 
-if (hangchuc > 1 && donvi == 0) {
-  alert(chuSo[hangchuc] + " " + chuc);
-} else if (hangchuc > 1 && hangchuc <= 9 && donvi > 0 && donvi <= 9) {
-  alert(chuSo[hangchuc] + " " + chuc + " " + chuSo[donvi]);
-} else if (hangchuc == 1 && donvi > 0 && donvi <= 9) {
-  alert(chuSo[Number(10)] + " " + chuSo[donvi]);
+let result = "";
+
+// ===== Trường hợp số < 10 =====
+if (number < 10) {
+  result = chuSo[number];
 }
 
-if (hangchuc == 1 && donvi == 5) {
-  alert("Mười lăm");
-} else if (hangchuc > 1 && donvi == 5) {
-  alert(chuSo[hangchuc] + " " + chuc + " lăm");
+// ===== Trường hợp số = 10 =====
+else if (number === 10) {
+  result = "Mười";
 }
 
-if (hangchuc == 1 && donvi == 1) {
-  alert("Mười một");
-} else if (hangchuc > 1 && donvi == 1) {
-  alert(chuSo[hangchuc] + " " + chuc + " mốt");
+// ===== Trường hợp số > 10 =====
+else {
+  // ---- Đọc hàng chục ----
+  if (hangChuc === 1) {
+    result = "Mười";
+  } else {
+    result = chuSo[hangChuc] + " mươi";
+  }
+
+  // ---- Đọc hàng đơn vị ----
+  if (hangDonVi === 1 && hangChuc > 1) {
+    result += " mốt";
+  } else if (hangDonVi === 5) {
+    result += " lăm";
+  } else if (hangDonVi > 0) {
+    result += " " + chuSo[hangDonVi];
+  }
 }
 
-// if (number<10)
-alert(chuSo[Number(number)]);
+alert(result);
